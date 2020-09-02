@@ -1,38 +1,48 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using AutiRiaBg.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace AutiRiaBg
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using AutoRiaBg.Application;
+    using AutoRiaBg.Infrastructure;
+    using AutoRiaBg.Application.Interfaces;
+    using AutoRiaBg.Infrastructure.Persistence;
+    using AutiRiaBg.Middlewares;
+    using AutiRiaBg.Services;
+    using Microsoft.Extensions.FileProviders;
+    using System.IO;
+    using Microsoft.AspNetCore.Http;
+
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddApplicationLayer();
+
+            services.AddInfrastructureLayer(Configuration);
+
+            services.AddTransient<ICurrentUserService, CurrentUserService>();
+
+            services.AddHttpContextAccessor();
+
+            services.AddHealthChecks()
+                .AddDbContextCheck<ApplicationDbContext>();
+
             services.AddRazorPages();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,13 +60,24 @@ namespace AutiRiaBg
                 app.UseHsts();
             }
 
+            app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "CarPhotos")),
+                RequestPath = new PathString("/CarPhotos")
+            });
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //app.UseIdentityServer();
+
+            //Custom
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
@@ -65,3 +86,4 @@ namespace AutiRiaBg
         }
     }
 }
+

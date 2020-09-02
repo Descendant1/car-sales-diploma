@@ -8,3 +8,46 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="container">
+
+    <!-- Full-width images with number text -->
+    @{
+        for (int i = 1; i < Model.Data.Data.Count + 1; i++)
+        {
+            <div class="mySlides">
+                <div class="numbertext">@i / @Model.Data.Data.Count</div>
+                <img src="@Url.Content(System.IO.Path.Combine( "CarPhotos" , Model.Data.Data[i-1].Photos[0].PhotoRelativePath))" style="width:100%">
+            </div>
+        }
+    }
+
+    <!-- Next and previous buttons -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <!-- Image text -->
+    <div class="caption-container">
+        <p id="caption"></p>
+
+
+    </div>
+
+    <!-- Thumbnail images -->
+    <div class="row">
+        @{
+            for (int i = 1; i < Model.Data.Data.Count + 1; i++)
+            {
+                <div class="column">
+                    <img class="demo cursor" src="@Url.Content(System.IO.Path.Combine( "CarPhotos" , Model.Data.Data[i-1].Photos[0].PhotoRelativePath))" style="width:100%" onclick="currentSlide(@i)" alt="The Woods">
+                </div>
+            }
+        }
+    </div>
+
+    <ul class="logo-list">
+        <li><a href=""><img src="https://www.carlogos.org/car-logos/tesla-logo.png" alt="Tesla logo">Tesla</a></li>
+
+    </ul> 
+</div>
+

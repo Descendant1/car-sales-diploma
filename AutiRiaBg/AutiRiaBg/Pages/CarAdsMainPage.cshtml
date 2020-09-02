@@ -1,0 +1,167 @@
+﻿@page
+@model AutiRiaBg.Pages.CarAdsMainPageModel
+
+<h4>CarAd</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4" >
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CarAd.PublicId" class="control-label"></label>
+                <input asp-for="CarAd.PublicId" class="form-control" />
+                <span asp-validation-for="CarAd.PublicId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAd.Header" class="control-label"></label>
+                <input asp-for="CarAd.Header" class="form-control" />
+                <span asp-validation-for="CarAd.Header" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="CarAd.Price" class="control-label"></label>
+                <input asp-for="CarAd.Price" class="form-control" />
+                <span asp-validation-for="CarAd.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <label asp-for="CarAd.EngineVolume" class="control-label"></label>
+            <input asp-for="CarAd.EngineVolume" class="form-control" />
+            <span asp-validation-for="CarAd.EngineVolume" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="CarAd.IsFromSalon" /> @Html.DisplayNameFor(model => model.CarAd.IsFromSalon)
+            </label>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.Region" class="control-label"></label>
+            <input asp-for="CarAd.Region" class="form-control" />
+            <span asp-validation-for="CarAd.Region" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.YearManagactured" class="control-label"></label>
+            <input asp-for="CarAd.YearManagactured" class="form-control" />
+            <span asp-validation-for="CarAd.YearManagactured" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.EngineHorsePowers" class="control-label"></label>
+            <input asp-for="CarAd.EngineHorsePowers" class="form-control" />
+            <span asp-validation-for="CarAd.EngineHorsePowers" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.ZeroToHundredInSeconds" class="control-label"></label>
+            <input asp-for="CarAd.ZeroToHundredInSeconds" class="form-control" />
+            <span asp-validation-for="CarAd.ZeroToHundredInSeconds" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.VIN" class="control-label"></label>
+            <input asp-for="CarAd.VIN" class="form-control" />
+            <span asp-validation-for="CarAd.VIN" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.LicencePlates" class="control-label"></label>
+            <input asp-for="CarAd.LicencePlates" class="form-control" />
+            <span asp-validation-for="CarAd.LicencePlates" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="CarAd.IsNewRegistration" /> @Html.DisplayNameFor(model => model.CarAd.IsNewRegistration)
+            </label>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.CoutnryFrom" class="control-label"></label>
+            <input asp-for="CarAd.CoutnryFrom" class="form-control" />
+            <span asp-validation-for="CarAd.CoutnryFrom" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.Mileage" class="control-label"></label>
+            <input asp-for="CarAd.Mileage" class="form-control" />
+            <span asp-validation-for="CarAd.Mileage" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.CityConsumption" class="control-label"></label>
+            <input asp-for="CarAd.CityConsumption" class="form-control" />
+            <span asp-validation-for="CarAd.CityConsumption" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.HighwayConsumption" class="control-label"></label>
+            <input asp-for="CarAd.HighwayConsumption" class="form-control" />
+            <span asp-validation-for="CarAd.HighwayConsumption" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.MixedConsumption" class="control-label"></label>
+            <input asp-for="CarAd.MixedConsumption" class="form-control" />
+            <span asp-validation-for="CarAd.MixedConsumption" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.Description" class="control-label"></label>
+            <input asp-for="CarAd.Description" class="form-control" />
+            <span asp-validation-for="CarAd.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.NumberOfViews" class="control-label"></label>
+            <input asp-for="CarAd.NumberOfViews" class="form-control" />
+            <span asp-validation-for="CarAd.NumberOfViews" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="CarAd.IsInOrder" /> @Html.DisplayNameFor(model => model.CarAd.IsInOrder)
+            </label>
+        </div>
+        <div class="form-group">
+            <label asp-for="CarAd.IdUser" class="control-label"></label>
+            <input asp-for="CarAd.IdUser" class="form-control" />
+            <span asp-validation-for="CarAd.IdUser" claADSss="text-danger"></span>
+        </div>*@
+
+            <div class="form-group">
+                <label asp-for="CarAd.MultimediaDevices" class="control-label"></label>
+                <select asp-for="CarAd.MultimediaDevices" class="form-control" asp-items="(List<SelectListItem>)@ViewData["MMD"]"></select>
+                <span asp-validation-for="CarAd.MultimediaDevices" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAd.AdditionalServices" class="control-label"></label>
+                <select asp-for="CarAd.AdditionalServices" class="form-control" asp-items="(List<SelectListItem>)@ViewData["ADS"]"></select>
+                <span asp-validation-for="CarAd.AdditionalServices" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CarAd.BodyType" class="control-label"></label>
+                <select asp-for="CarAd.BodyType" class="form-control" asp-items="Html.GetEnumSelectList<AutoRiaBg.Domain.Enums.BodyType>()"></select>
+                <span asp-validation-for="CarAd.BodyType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAd.TransmissionType" class="control-label"></label>
+                <select asp-for="CarAd.TransmissionType" class="form-control" asp-items="Html.GetEnumSelectList<AutoRiaBg.Domain.Enums.TransmissionType>()"></select>
+                <span asp-validation-for="CarAd.TransmissionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAd.FuelType" class="control-label"></label>
+                <select asp-for="CarAd.FuelType" class="form-control" asp-items="Html.GetEnumSelectList<AutoRiaBg.Domain.Enums.FuelType>()"></select>
+                <span asp-validation-for="CarAd.FuelType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAd.DriveType" class="control-label"></label>
+                <select asp-for="CarAd.DriveType" class="form-control" asp-items="Html.GetEnumSelectList<AutoRiaBg.Domain.Enums.DriveType>()"></select>
+                <span asp-validation-for="CarAd.DriveType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CarAd.PhotoFiles" class="control-label"></label>
+                <input asp-for="CarAd.PhotoFiles" type="file" class="form-control" multiple/>
+                <span asp-validation-for="CarAd.PhotoFiles" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
