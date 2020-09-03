@@ -46,7 +46,15 @@
     </div>
 
     <ul class="logo-list">
-        <li><a href=""><img src="https://www.carlogos.org/car-logos/tesla-logo.png" alt="Tesla logo">Tesla</a></li>
+
+        @{
+            foreach (var item in Model.BrandsListViewModel.Data)
+            {
+                <li><a href=""><img src="@item.LogoLink" alt="">@item.Name</a></li>
+
+            }
+        }
+
 
     </ul> 
 </div>

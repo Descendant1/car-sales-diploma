@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using System;
 
     public static class DependencyInjection
     {
@@ -19,22 +20,19 @@
                         configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))); ;
 
+            var serviceProv = services.BuildServiceProvider();
 
+            var dbCont = serviceProv.GetRequiredService<ApplicationDbContext>();
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddScoped<IApplicationDbContext>(prov =>prov.GetRequiredService<ApplicationDbContext>());
 
             services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            
-
 
             services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddAuthentication();
-            //    .AddIdentityServerJwt();
 
-            //services.AddIdentityServer();
-                    //.AddApiAuthorization<User, ApplicationDbContext>();
             return services;
         }
     }

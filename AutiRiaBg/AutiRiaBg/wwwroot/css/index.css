@@ -117,6 +117,7 @@ img {
     background: #FFF;
     display: inline-block;
     vertical-align: top;
+    padding: 5px !important;
 }
     .logo-list li a {
         display: inline-block;

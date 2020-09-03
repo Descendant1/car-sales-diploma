@@ -15,14 +15,14 @@
 
     public class ApplicationDbContext : ApiAuthorizationDbContext<User>, IApplicationDbContext
     {
-        private readonly ICurrentUserService _currentUserService;
+        //private readonly ICurrentUserService _currentUserService;
 
         public ApplicationDbContext(
             DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService) : base(options, operationalStoreOptions)
+            IOptions<OperationalStoreOptions> operationalStoreOptions
+            /*ICurrentUserService currentUserService*/) : base(options, operationalStoreOptions)
         {
-            _currentUserService = currentUserService;
+            //_currentUserService = currentUserService;
         }
 
         public DbSet<CarAd> CarAds { get ; set; }
@@ -40,11 +40,11 @@
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.IdUserCreatedBy = _currentUserService.UserId;
+                        //entry.Entity.IdUserCreatedBy = _currentUserService.UserId;
                         entry.Entity.DateCreated = DateTime.Now;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.IdUserLastModifiedBy = _currentUserService.UserId;
+                        //entry.Entity.IdUserLastModifiedBy = _currentUserService.UserId;
                         entry.Entity.DateModified = DateTime.Now;
                         break;
                 }

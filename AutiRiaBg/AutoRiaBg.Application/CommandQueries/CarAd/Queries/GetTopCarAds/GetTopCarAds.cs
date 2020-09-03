@@ -2,6 +2,7 @@
 {
     using AutoRiaBg.Application.Interfaces;
     using AutoRiaBg.Application.ViewModels;
+    
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.VisualBasic.CompilerServices;

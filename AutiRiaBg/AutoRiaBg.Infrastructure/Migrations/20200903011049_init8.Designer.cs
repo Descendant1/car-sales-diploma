@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoRiaBg.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200902133707_init5")]
-    partial class init5
+    [Migration("20200903011049_init8")]
+    partial class init8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,7 +86,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.Car", b =>
@@ -121,7 +121,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Car");
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.CarAd", b =>
@@ -309,7 +309,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Model");
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.MultimediaDevice", b =>
@@ -382,7 +382,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("SubModel");
+                    b.ToTable("SubModels");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.User", b =>

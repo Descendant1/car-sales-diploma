@@ -32,17 +32,14 @@ namespace AutiRiaBg
 
             services.AddInfrastructureLayer(Configuration);
 
-            services.AddTransient<ICurrentUserService, CurrentUserService>();
-
             services.AddHttpContextAccessor();
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
             services.AddRazorPages();
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +74,7 @@ namespace AutiRiaBg
 
             //Custom
 
-            app.UseMiddleware<ExceptionHandlerMiddleware>();
+            //app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

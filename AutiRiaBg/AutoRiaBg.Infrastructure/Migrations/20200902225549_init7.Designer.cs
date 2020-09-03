@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoRiaBg.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200825230843_init1")]
-    partial class init1
+    [Migration("20200902225549_init7")]
+    partial class init7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,75 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("CarAdId");
 
-                    b.ToTable("AdditionalService");
+                    b.ToTable("AdditionalServices");
+                });
+
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IdUserCreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUserLastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.Car", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdBrand")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUserCreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUserLastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.CarAd", b =>
@@ -198,6 +266,44 @@ namespace AutoRiaBg.Infrastructure.Migrations
                     b.ToTable("CarPhoto");
                 });
 
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.Model", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdBrand")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUserCreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUserLastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.ToTable("Models");
+                });
+
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.MultimediaDevice", b =>
                 {
                     b.Property<int>("Id")
@@ -230,7 +336,45 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("CarAdId");
 
-                    b.ToTable("MultimediaDevice");
+                    b.ToTable("MultimediaDevices");
+                });
+
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.SubModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdModel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUserCreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUserLastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModelId");
+
+                    b.ToTable("SubModels");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.User", b =>
@@ -555,6 +699,13 @@ namespace AutoRiaBg.Infrastructure.Migrations
                         .HasForeignKey("CarAdId");
                 });
 
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.Car", b =>
+                {
+                    b.HasOne("AutoRiaBg.Domain.Entities.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId");
+                });
+
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.CarAd", b =>
                 {
                     b.HasOne("AutoRiaBg.Domain.Entities.User", "User")
@@ -571,11 +722,25 @@ namespace AutoRiaBg.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.Model", b =>
+                {
+                    b.HasOne("AutoRiaBg.Domain.Entities.Brand", "Brand")
+                        .WithMany("Models")
+                        .HasForeignKey("BrandId");
+                });
+
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.MultimediaDevice", b =>
                 {
                     b.HasOne("AutoRiaBg.Domain.Entities.CarAd", null)
                         .WithMany("MultimediaDevices")
                         .HasForeignKey("CarAdId");
+                });
+
+            modelBuilder.Entity("AutoRiaBg.Domain.Entities.SubModel", b =>
+                {
+                    b.HasOne("AutoRiaBg.Domain.Entities.Model", "Model")
+                        .WithMany("SubModels")
+                        .HasForeignKey("ModelId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

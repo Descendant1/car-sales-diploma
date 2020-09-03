@@ -84,7 +84,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.Car", b =>
@@ -119,7 +119,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Car");
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.CarAd", b =>
@@ -307,7 +307,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Model");
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.MultimediaDevice", b =>
@@ -380,7 +380,7 @@ namespace AutoRiaBg.Infrastructure.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("SubModel");
+                    b.ToTable("SubModels");
                 });
 
             modelBuilder.Entity("AutoRiaBg.Domain.Entities.User", b =>

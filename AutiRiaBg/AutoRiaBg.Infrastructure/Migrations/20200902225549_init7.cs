@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AutoRiaBg.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class init7 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,25 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Brands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUserCreatedBy = table.Column<string>(nullable: true),
+                    IdUserLastModifiedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    DeleteTime = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    LogoLink = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,8 +222,8 @@ namespace AutoRiaBg.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUserCreatedBy = table.Column<string>(nullable: true),
                     IdUserLastModifiedBy = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
                     DeleteTime = table.Column<DateTime>(nullable: true),
                     PublicId = table.Column<int>(nullable: false),
                     Header = table.Column<string>(nullable: true),
@@ -245,24 +264,75 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdditionalService",
+                name: "Cars",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUserCreatedBy = table.Column<string>(nullable: true),
                     IdUserLastModifiedBy = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    DeleteTime = table.Column<DateTime>(nullable: true),
+                    IdBrand = table.Column<int>(nullable: false),
+                    BrandId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cars_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Models",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUserCreatedBy = table.Column<string>(nullable: true),
+                    IdUserLastModifiedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    DeleteTime = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    IdBrand = table.Column<int>(nullable: false),
+                    BrandId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Models_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdditionalServices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUserCreatedBy = table.Column<string>(nullable: true),
+                    IdUserLastModifiedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
                     DeleteTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     CarAdId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdditionalService", x => x.Id);
+                    table.PrimaryKey("PK_AdditionalServices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdditionalService_CarAds_CarAdId",
+                        name: "FK_AdditionalServices_CarAds_CarAdId",
                         column: x => x.CarAdId,
                         principalTable: "CarAds",
                         principalColumn: "Id",
@@ -277,8 +347,8 @@ namespace AutoRiaBg.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUserCreatedBy = table.Column<string>(nullable: true),
                     IdUserLastModifiedBy = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
                     DeleteTime = table.Column<DateTime>(nullable: true),
                     PhotoRelativePath = table.Column<string>(nullable: true),
                     CarId = table.Column<int>(nullable: false)
@@ -295,33 +365,59 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MultimediaDevice",
+                name: "MultimediaDevices",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUserCreatedBy = table.Column<string>(nullable: true),
                     IdUserLastModifiedBy = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
                     DeleteTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     CarAdId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MultimediaDevice", x => x.Id);
+                    table.PrimaryKey("PK_MultimediaDevices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MultimediaDevice_CarAds_CarAdId",
+                        name: "FK_MultimediaDevices_CarAds_CarAdId",
                         column: x => x.CarAdId,
                         principalTable: "CarAds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SubModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUserCreatedBy = table.Column<string>(nullable: true),
+                    IdUserLastModifiedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateModified = table.Column<DateTime>(nullable: true),
+                    DeleteTime = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    IdModel = table.Column<int>(nullable: false),
+                    ModelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubModels_Models_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "Models",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_AdditionalService_CarAdId",
-                table: "AdditionalService",
+                name: "IX_AdditionalServices_CarAdId",
+                table: "AdditionalServices",
                 column: "CarAdId");
 
             migrationBuilder.CreateIndex(
@@ -374,6 +470,11 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cars_BrandId",
+                table: "Cars",
+                column: "BrandId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
                 table: "DeviceCodes",
                 column: "DeviceCode",
@@ -385,8 +486,13 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MultimediaDevice_CarAdId",
-                table: "MultimediaDevice",
+                name: "IX_Models_BrandId",
+                table: "Models",
+                column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MultimediaDevices_CarAdId",
+                table: "MultimediaDevices",
                 column: "CarAdId");
 
             migrationBuilder.CreateIndex(
@@ -403,12 +509,17 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubModels_ModelId",
+                table: "SubModels",
+                column: "ModelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AdditionalService");
+                name: "AdditionalServices");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -429,13 +540,19 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 name: "CarPhoto");
 
             migrationBuilder.DropTable(
+                name: "Cars");
+
+            migrationBuilder.DropTable(
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
-                name: "MultimediaDevice");
+                name: "MultimediaDevices");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
+
+            migrationBuilder.DropTable(
+                name: "SubModels");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -444,7 +561,13 @@ namespace AutoRiaBg.Infrastructure.Migrations
                 name: "CarAds");
 
             migrationBuilder.DropTable(
+                name: "Models");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Brands");
         }
     }
 }
